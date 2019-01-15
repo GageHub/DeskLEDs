@@ -1,21 +1,25 @@
 #include <FastLED.h>
 
+// leds[i].setRGB(255, 41, 87); nice aesthetic blue
+// leds[i].setRGB(16, 216, 175); purple
+
+
 //Constants
 #define LED_PIN     15
 #define NUM_LEDS    120
 #define CHIPSET     WS2812B
-#define COLOR_ORDER RGB
-#define BRIGHTNESS  128
+#define COLOR_ORDER GRB
+#define BRIGHTNESS  200
 #define BUTTON_PIN  A1
 
 CRGB leds[NUM_LEDS];
 
 int buttonState = 0;
 int counter = 0;
-int maxc = 4;
+int maxc = 5;
 
 void setup() {
-  delay( 3000 );
+  delay(3000);
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalSMD5050 );
   FastLED.setBrightness( BRIGHTNESS );
   pinMode(LED_PIN, OUTPUT);
@@ -23,6 +27,7 @@ void setup() {
 
   for(int i = 0; i < NUM_LEDS; i++) {
     leds[i] = CHSV(0, 0, 0);
+    
     FastLED.show(); 
   }
   
@@ -43,19 +48,31 @@ void loop() {
      FastLED.show(); 
   }//for
   }
-
-  if (counter == 2) {
+  
+  else if (counter == (maxc-1)) {
    for(int i = 0; i < NUM_LEDS; i++) {
     leds[i] = CHSV(0, 0, 0);
     FastLED.show(); 
   }
- }//if
+  }
  
- if (counter == 3) {
+ else if(counter == 2) {
    for(int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CHSV(255, 41, 87);
+    //if(i%2==0){
+      leds[i].setRGB(14, 244, 221);
+    //}
+    //else{
+    //  leds[i].setRGB(19,216,174);
+    //}
     FastLED.show(); 
   }
  }//if
+
+ else if (counter == 3) {
+   for(int i = 0; i < NUM_LEDS; i++) {
+    leds[i].setRGB(226, 124, 255);
+    FastLED.show(); 
+  }
+  }
  
 }//LOOP
